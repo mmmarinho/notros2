@@ -45,6 +45,8 @@ def create_cmakelists_txt_from_template(path: pathlib.Path, args: argparse.Names
     if not os.path.isdir(path):
         raise ValueError(f'the path={path} does not exist.')
 
+    print(f"Creating CMakeLists.txt... ")
+
     ament_dependencies_str = ""
     if vars(args)['ament_dependencies'] is not None:
         for ament_dependency in args.ament_dependencies:

@@ -35,7 +35,8 @@ def main() -> None:
 
         parser = argparse.ArgumentParser(prog='notros2',
                                          description='notros2 are not ros2 utilities.',
-                                         epilog='TODO',
+                                         epilog='This is a package template generator based on the tutorials at'
+                                                'https://ros2-tutorial.readthedocs.io/en/latest/',
                                          )
         subparsers = parser.add_subparsers(help='sub-command help', required=True, dest='command')
 
@@ -85,8 +86,6 @@ def main() -> None:
         else:
             parser.parse_args(["-h"])
             return
-
-        print(args)
 
         if args.command == "pkg":
             if args.subcommand == "create":

@@ -49,6 +49,7 @@ def create_package_template(path: pathlib.Path, config: dict, args: argparse.Nam
     else:
         raise ValueError(f"The directory {args.package_name} already exists, choose another name for your package.")
 
+    print(f"Creating package {args.package_name}... ")
     create_package_xml_from_template(package_path, config, args)
     create_cmakelists_txt_from_template(package_path, args)
     create_cpp_for_nodes(package_path, args)

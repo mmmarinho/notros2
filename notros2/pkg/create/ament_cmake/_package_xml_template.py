@@ -43,6 +43,8 @@ def create_package_xml_from_template(path: pathlib.Path, config: dict, args: arg
     if not os.path.isdir(path):
         raise ValueError(f'the path={path} does not exist.')
 
+    print(f"Creating package.xml... ")
+
     ament_dependencies_str = ""
     if args.ament_dependencies is not None:
         ament_dependencies_str = ament_dependencies_str + '  \n'
