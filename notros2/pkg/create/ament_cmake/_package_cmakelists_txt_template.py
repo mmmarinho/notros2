@@ -21,11 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-import os
 import textwrap
 import argparse
 import pathlib
 
+from ._input_checker import _check_common_inputs
 from ._add_node import get_cmake_for_nodes
 from ._add_library import get_cmake_for_library
 
@@ -38,12 +38,7 @@ def create_cmakelists_txt_from_template(path: pathlib.Path, args: argparse.Names
     :return: None
     :except: Raises ValueErrors when the inputs are wrong.
     """
-    if path is None:
-        raise ValueError('Path must not be None.')
-    if args is None:
-        raise ValueError('args must not be None.')
-    if not os.path.isdir(path):
-        raise ValueError(f'the path={path} does not exist.')
+    _check_common_inputs(path, args)
 
     print(f"Creating CMakeLists.txt... ")
 

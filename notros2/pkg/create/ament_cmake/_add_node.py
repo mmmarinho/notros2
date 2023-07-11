@@ -24,16 +24,13 @@ SOFTWARE.
 import os
 import argparse
 import pathlib
+from ._input_checker import _check_common_inputs
 from notros2.pkg.create.ament_cmake.templates.simple_node import cpp, main_cpp, hpp, cmake
 
 
 def create_cpp_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
-    if path is None:
-        raise ValueError('Path must not be None.')
-    if args is None:
-        raise ValueError('args must not be None.')
-    if not os.path.isdir(path):
-        raise ValueError(f'the path={path} does not exist.')
+    _check_common_inputs(path, args)
+
     if vars(args)['add_nodes'] is None:
         return
     cpp_source_path = path / pathlib.Path('src')
@@ -51,19 +48,19 @@ def create_cpp_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
 
         print(f"Creating {node_name}_main.cpp ...")
 
-        node_cpp_main_str = main_cpp.get_source(node_name, NodeName)
+        context = {
+            'node_name': node_name,
+            'NodeName': NodeName
+        }
+        node_cpp_main_str = main_cpp.get_source(args, context)
 
         with open(cpp_source_path / pathlib.Path(f'{node_name}_main.cpp'), 'w+') as node_cpp_main_file:
             node_cpp_main_file.write(node_cpp_main_str)
 
 
 def create_hpp_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
-    if path is None:
-        raise ValueError('Path must not be None.')
-    if args is None:
-        raise ValueError('args must not be None.')
-    if not os.path.isdir(path):
-        raise ValueError(f'the path={path} does not exist.')
+    _check_common_inputs(path, args)
+
     if vars(args)['add_nodes'] is None:
         return
     cpp_source_path = path / pathlib.Path('src')
@@ -72,19 +69,21 @@ def create_hpp_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
 
     for node_name in vars(args)['add_nodes']:
         print(f"Creating {node_name}.hpp ...")
+
         NodeName = node_name.replace("_", " ").title().replace(" ", "")
-        node_hpp_str = hpp.get_source(NodeName)
+
+        context = {
+            "NodeName": NodeName
+        }
+        node_hpp_str = hpp.get_source(args, context)
+
         with open(cpp_source_path / pathlib.Path(f'{node_name}.hpp'), 'w+') as node_hpp_file:
             node_hpp_file.write(node_hpp_str)
 
 
 def get_cmake_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> str:
-    if path is None:
-        raise ValueError('Path must not be None.')
-    if args is None:
-        raise ValueError('args must not be None.')
-    if not os.path.isdir(path):
-        raise ValueError(f'the path={path} does not exist.')
+    _check_common_inputs(path, args)
+
     if vars(args)['add_nodes'] is None:
         return ""
 
@@ -96,8 +95,15 @@ def get_cmake_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> str:
     add_nodes_str = ""
     for node_name in vars(args)['add_nodes']:
         print(f"Adding CMakeLists.txt directive for {node_name} ...")
+
         nl = '\n'
-        add_node_str = cmake.get_source(args,node_name,ament_dependencies_str,nl)
+
+        context = {
+            "node_name": node_name,
+            "ament_dependencies_str": ament_dependencies_str,
+            "nl": nl
+        }
+        add_node_str = cmake.get_source(args, context)
 
         add_nodes_str = add_nodes_str + add_node_str
 

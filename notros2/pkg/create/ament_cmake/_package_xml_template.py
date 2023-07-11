@@ -21,10 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-import os
 import textwrap
 import argparse
 import pathlib
+
+from ._input_checker import _check_common_inputs
 
 
 def create_package_xml_from_template(path: pathlib.Path, config: dict, args: argparse.Namespace):
@@ -36,12 +37,7 @@ def create_package_xml_from_template(path: pathlib.Path, config: dict, args: arg
     :return: None
     :except: Raises ValueErrors when the inputs are wrong.
     """
-    if path is None:
-        raise ValueError('Path must not be None.')
-    if args is None:
-        raise ValueError('args must not be None.')
-    if not os.path.isdir(path):
-        raise ValueError(f'the path={path} does not exist.')
+    _check_common_inputs(path, args)
 
     print(f"Creating package.xml... ")
 
@@ -72,7 +68,7 @@ def create_package_xml_from_template(path: pathlib.Path, config: dict, args: arg
           </export>
         </package>\
     """
-    )
+                                      )
 
-    with open(path/pathlib.Path('package.xml'), 'w+') as package_xml_file:
+    with open(path / pathlib.Path('package.xml'), 'w+') as package_xml_file:
         package_xml_file.write(package_xml_str)

@@ -24,16 +24,12 @@ SOFTWARE.
 import os
 import argparse
 import pathlib
+from ._input_checker import _check_common_inputs
 from notros2.pkg.create.ament_cmake.templates.library import cpp, hpp, cmake
 
 
 def create_hpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None:
-    if path is None:
-        raise ValueError('Path must not be None.')
-    if args is None:
-        raise ValueError('args must not be None.')
-    if not os.path.isdir(path):
-        raise ValueError(f'the path={path} does not exist.')
+    _check_common_inputs(path, args)
 
     include_path = path / pathlib.Path('include')
     package_include_path = include_path / pathlib.Path(f'{args.package_name}')
@@ -48,18 +44,14 @@ def create_hpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None
             pass
     else:
         print(f"Creating sample library hpp ...")
-        library_hpp_str = hpp.get_source()
+        library_hpp_str = hpp.get_source(args, context={})
         with open(package_include_path / pathlib.Path('sample_class.hpp'), 'w+') as library_hpp_file:
             library_hpp_file.write(library_hpp_str)
 
 
 def create_cpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None:
-    if path is None:
-        raise ValueError('Path must not be None.')
-    if args is None:
-        raise ValueError('args must not be None.')
-    if not os.path.isdir(path):
-        raise ValueError(f'the path={path} does not exist.')
+    _check_common_inputs(path, args)
+
     if vars(args)['has_library'] is False:
         return
     library_source_path = path / pathlib.Path('src')
@@ -68,18 +60,14 @@ def create_cpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None
 
     print(f"Creating sample library cpp ...")
 
-    library_cpp_str = cpp.get_source(args)
+    library_cpp_str = cpp.get_source(args, context={})
     with open(library_source_path / pathlib.Path(f'sample_class.cpp'), 'w+') as library_cpp_file:
         library_cpp_file.write(library_cpp_str)
 
 
 def get_cmake_for_library(path: pathlib.Path, args: argparse.Namespace):
-    if path is None:
-        raise ValueError('Path must not be None.')
-    if args is None:
-        raise ValueError('args must not be None.')
-    if not os.path.isdir(path):
-        raise ValueError(f'the path={path} does not exist.')
+    _check_common_inputs(path, args)
+
     if not args.has_library:
         return ""
 
@@ -90,6 +78,7 @@ def get_cmake_for_library(path: pathlib.Path, args: argparse.Namespace):
         for ament_dependency in args.ament_dependencies:
             ament_dependencies_str = ament_dependencies_str + f'    {ament_dependency}\n'
 
-    add_lib_str = cmake.get_source(ament_dependencies_str)
+    context = {'ament_dependencies_str': ament_dependencies_str}
+    add_lib_str = cmake.get_source(args, context)
 
     return add_lib_str
