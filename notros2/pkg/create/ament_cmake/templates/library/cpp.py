@@ -3,6 +3,7 @@ import argparse
 
 def get_source(args: argparse.Namespace) -> str:
     return f"""\
+//Template from https://ros2-tutorial.readthedocs.io/en/latest/
 #include <{args.package_name}/sample_class.hpp>
 
 

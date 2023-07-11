@@ -1,5 +1,6 @@
 def get_source(NodeName: str) -> str:
     return f"""\
+//Template from https://ros2-tutorial.readthedocs.io/en/latest/
 #pragma once
 
 #include <rclcpp/rclcpp.hpp>
