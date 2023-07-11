@@ -1,2 +1,3 @@
-# (Murilo's) ROS1/2 Utilities 
+# (Murilo's) NOT ros2 Utilities 
 
+These are utilities NOT for ros2.
