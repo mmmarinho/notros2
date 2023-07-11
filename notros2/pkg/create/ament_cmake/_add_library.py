@@ -24,7 +24,7 @@ SOFTWARE.
 import os
 import argparse
 import pathlib
-from notros2.pkg.create.ament_cmake.templates.library import cpp,hpp,cmake
+from notros2.pkg.create.ament_cmake.templates.library import cpp, hpp, cmake
 
 
 def create_hpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None:
@@ -34,10 +34,6 @@ def create_hpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None
         raise ValueError('args must not be None.')
     if not os.path.isdir(path):
         raise ValueError(f'the path={path} does not exist.')
-    if vars(args)['has_library'] is False:
-        return
-
-    print(f"Creating sample library hpp ...")
 
     include_path = path / pathlib.Path('include')
     package_include_path = include_path / pathlib.Path(f'{args.package_name}')
@@ -46,9 +42,15 @@ def create_hpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None
         if not os.path.isdir(package_include_path):
             os.mkdir(package_include_path)
 
-    library_hpp_str = hpp.get_source()
-    with open(package_include_path / pathlib.Path(f'sample_class.hpp'), 'w+') as library_hpp_file:
-        library_hpp_file.write(library_hpp_str)
+    if vars(args)['has_library'] is False:
+        print(f"Creating sample placeholder for library hpp ...")
+        with open(package_include_path / pathlib.Path('.placeholder'), 'w+') as _:
+            pass
+    else:
+        print(f"Creating sample library hpp ...")
+        library_hpp_str = hpp.get_source()
+        with open(package_include_path / pathlib.Path('sample_class.hpp'), 'w+') as library_hpp_file:
+            library_hpp_file.write(library_hpp_str)
 
 
 def create_cpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None:
