@@ -1,5 +1,3 @@
-# https://wiki.debian.org/Python/LibraryStyleGuide
-
 from setuptools import setup, find_packages
 
 # Automatic version
