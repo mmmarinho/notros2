@@ -51,10 +51,7 @@ rosidl_generate_interfaces(${{PROJECT_NAME}}
 
 )
 
-ament_export_dependencies(
-    rosidl_default_runtime
-{ament_dependencies_str}\
-)
+ament_export_dependencies(rosidl_default_runtime)
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 # Interfaces Only Package Block [END] #
