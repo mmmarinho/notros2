@@ -41,7 +41,7 @@ def create_hpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None
         if not os.path.isdir(package_include_path):
             os.mkdir(package_include_path)
 
-    if not vars(args)['interface_only']:
+    if not args.interfaces_only:
         if not vars(args)['has_library']:
             print(f"Creating sample placeholder for library hpp ...")
             with open(package_include_path / pathlib.Path('.placeholder'), 'w+') as _:
