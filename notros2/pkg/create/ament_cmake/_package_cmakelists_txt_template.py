@@ -59,7 +59,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-{get_cmake_dependencies_for_library}
+{get_cmake_dependencies_for_library(path, args)}
 {ament_dependencies_str}\
 {get_cmake_for_library(path, args)}\
 {get_cmake_for_nodes(path, args)}\
