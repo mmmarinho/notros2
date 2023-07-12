@@ -28,7 +28,13 @@ from ._commons import \
     _check_common_inputs, \
     _parse_ament_dependencies_for_cmake
 
-from notros2.pkg.create.ament_cmake.templates.library import cpp, hpp, cmake
+from notros2.pkg.create.ament_cmake.templates.library import cpp, hpp, cmake, cmake_dependencies
+
+
+def get_cmake_dependencies_for_library(path: pathlib.Path, args: argparse.Namespace) -> str:
+    _check_common_inputs(path, args)
+
+    return cmake_dependencies.get_source(args, context={})
 
 
 def create_hpp_for_library(path: pathlib.Path, args: argparse.Namespace) -> None:

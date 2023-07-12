@@ -27,7 +27,7 @@ import pathlib
 
 from ._commons import _check_common_inputs
 from ._add_node import get_cmake_for_nodes
-from ._add_library import get_cmake_for_library
+from ._add_library import get_cmake_for_library, get_cmake_dependencies_for_library
 from ._add_message_only import get_cmake_for_interfaces_only
 
 
@@ -59,6 +59,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+{get_cmake_dependencies_for_library}
 {ament_dependencies_str}\
 {get_cmake_for_library(path, args)}\
 {get_cmake_for_nodes(path, args)}\
