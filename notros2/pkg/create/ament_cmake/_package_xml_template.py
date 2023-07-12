@@ -45,7 +45,7 @@ def create_package_xml_from_template(path: pathlib.Path, config: dict, args: arg
     if args.ament_dependencies is not None:
         ament_dependencies_str = ament_dependencies_str + '  \n'
         for ament_dependency in args.ament_dependencies:
-            ament_dependencies_str = ament_dependencies_str + f'          <dependency>{ament_dependency}</dependency>\n'
+            ament_dependencies_str = ament_dependencies_str + f'          <depend>{ament_dependency}</depend>\n'
         ament_dependencies_str = ament_dependencies_str + '  '
 
     interfaces_only_str = ""
