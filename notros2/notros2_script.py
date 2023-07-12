@@ -100,6 +100,8 @@ def main() -> None:
                     # build with ament_cmake.
                     args.build_type = "ament_cmake"
                     args.interfaces_only = True
+                else:
+                    args.interfaces_only = False
                 create_package_template(pathlib.Path("."), config, args)
             elif args.subcommand == "set":
                 if len(sys.argv) == 3:

@@ -44,17 +44,17 @@ def create_cpp_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
         print(f"Creating {node_name}.cpp ...")
         NodeName = node_name.replace("_", " ").title().replace(" ", "")
 
-        node_cpp_str = cpp.get_source(node_name, NodeName)
+        context = {
+            'node_name': node_name,
+            'NodeName': NodeName
+        }
+        node_cpp_str = cpp.get_source(args, context)
 
         with open(cpp_source_path / pathlib.Path(f'{node_name}.cpp'), 'w+') as node_cpp_file:
             node_cpp_file.write(node_cpp_str)
 
         print(f"Creating {node_name}_main.cpp ...")
 
-        context = {
-            'node_name': node_name,
-            'NodeName': NodeName
-        }
         node_cpp_main_str = main_cpp.get_source(args, context)
 
         with open(cpp_source_path / pathlib.Path(f'{node_name}_main.cpp'), 'w+') as node_cpp_main_file:
