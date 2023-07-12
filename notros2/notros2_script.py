@@ -61,7 +61,11 @@ def main() -> None:
         # "pkg create"
         parser_pkg_create = subparsers_pkg.add_parser('create', help='create notros2 package templates.')
         parser_pkg_create.add_argument('package_name', type=str)
-        parser_pkg_create.add_argument('build_type', type=str, choices=['ament_cmake', 'ament_python'])
+        parser_pkg_create.add_argument('build_type',
+                                       type=str,
+                                       choices=['ament_cmake',
+                                                'ament_python',
+                                                'interfaces_only'])
 
         parser_pkg_create.add_argument('--ament-dependencies',
                                        type=str,

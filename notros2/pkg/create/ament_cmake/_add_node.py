@@ -24,7 +24,10 @@ SOFTWARE.
 import os
 import argparse
 import pathlib
-from ._input_checker import _check_common_inputs
+from ._commons import \
+    _check_common_inputs, \
+    _parse_ament_dependencies_for_cmake
+
 from notros2.pkg.create.ament_cmake.templates.simple_node import cpp, main_cpp, hpp, cmake
 
 
@@ -87,10 +90,7 @@ def get_cmake_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> str:
     if vars(args)['add_nodes'] is None:
         return ""
 
-    ament_dependencies_str = ""
-    if vars(args)['ament_dependencies'] is not None:
-        for ament_dependency in args.ament_dependencies:
-            ament_dependencies_str = ament_dependencies_str + f'    {ament_dependency}\n'
+    ament_dependencies_str = _parse_ament_dependencies_for_cmake(args)
 
     add_nodes_str = ""
     for node_name in vars(args)['add_nodes']:

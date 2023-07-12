@@ -24,7 +24,10 @@ SOFTWARE.
 import os
 import argparse
 import pathlib
-from ._input_checker import _check_common_inputs
+from ._commons import \
+    _check_common_inputs, \
+    _parse_ament_dependencies_for_cmake
+
 from notros2.pkg.create.ament_cmake.templates.library import cpp, hpp, cmake
 
 
@@ -73,10 +76,7 @@ def get_cmake_for_library(path: pathlib.Path, args: argparse.Namespace):
 
     print(f"Adding CMakeLists.txt directive for library ...")
 
-    ament_dependencies_str = ""
-    if args.ament_dependencies is not None:
-        for ament_dependency in args.ament_dependencies:
-            ament_dependencies_str = ament_dependencies_str + f'    {ament_dependency}\n'
+    ament_dependencies_str = _parse_ament_dependencies_for_cmake(args)
 
     context = {'ament_dependencies_str': ament_dependencies_str}
     add_lib_str = cmake.get_source(args, context)

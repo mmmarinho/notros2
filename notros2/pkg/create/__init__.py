@@ -49,11 +49,25 @@ def create_package_template(path: pathlib.Path, config: dict, args: argparse.Nam
     else:
         raise ValueError(f"The directory {args.package_name} already exists, choose another name for your package.")
 
-    print(f"Creating package {args.package_name}... ")
-    create_package_xml_from_template(package_path, config, args)
-    create_cmakelists_txt_from_template(package_path, args)
-    create_cpp_for_nodes(package_path, args)
-    create_hpp_for_nodes(package_path, args)
-    create_cpp_for_library(package_path, args)
-    create_hpp_for_library(package_path, args)
+    if args.build_type == "ament_cmake":
+        print(f"Creating ament_cmake package {args.package_name}... ")
+        create_package_xml_from_template(package_path, config, args)
+        create_cmakelists_txt_from_template(package_path, args)
+        create_cpp_for_nodes(package_path, args)
+        create_hpp_for_nodes(package_path, args)
+        create_cpp_for_library(package_path, args)
+        create_hpp_for_library(package_path, args)
+    elif args.build_type == "interfaces_only":
+        print(f"Creating interfaces_only (ament_cmake) package {args.package_name}... ")
+        # The user input 'interfaces_only' is just to get us until here, so we fix to the
+        # correct build type from here onward
+        args.build_type = "ament_cmake"
+        args.interfaces_only = True
+        create_package_xml_from_template(package_path, config, args)
+        create_cmakelists_txt_from_template(package_path, args)
+        if vars(args)['add_nodes'] is not None:
+            print("WARNING: --add-nodes is ignored with build-type=interfaces-only.")
+        if vars(args)['has_library']:
+            print("WARNING: --has-library is ignored with build-type=interfaces-only.")
+
 

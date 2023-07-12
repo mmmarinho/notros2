@@ -25,9 +25,10 @@ import textwrap
 import argparse
 import pathlib
 
-from ._input_checker import _check_common_inputs
+from ._commons import _check_common_inputs
 from ._add_node import get_cmake_for_nodes
 from ._add_library import get_cmake_for_library
+from ._add_message_only import get_cmake_for_interfaces_only
 
 
 def create_cmakelists_txt_from_template(path: pathlib.Path, args: argparse.Namespace) -> None:
@@ -60,7 +61,8 @@ endif()
 find_package(ament_cmake REQUIRED)
 {ament_dependencies_str}\
 {get_cmake_for_library(path, args)}\
-{get_cmake_for_nodes(path, args)}
+{get_cmake_for_nodes(path, args)}\
+{get_cmake_for_interfaces_only(path, args)}
 if(BUILD_TESTING)
     find_package(ament_lint_auto REQUIRED)
     # the following line skips the linter which checks for copyrights
@@ -78,3 +80,4 @@ ament_package()\
 
     with open(path / pathlib.Path('CMakeLists.txt'), 'w+') as cmakelists_txt_file:
         cmakelists_txt_file.write(cmakelists_txt_str)
+

@@ -25,7 +25,7 @@ import textwrap
 import argparse
 import pathlib
 
-from ._input_checker import _check_common_inputs
+from ._commons import _check_common_inputs
 
 
 def create_package_xml_from_template(path: pathlib.Path, config: dict, args: argparse.Namespace):
@@ -48,6 +48,14 @@ def create_package_xml_from_template(path: pathlib.Path, config: dict, args: arg
             ament_dependencies_str = ament_dependencies_str + f'          <dependency>{ament_dependency}</dependency>\n'
         ament_dependencies_str = ament_dependencies_str + '  '
 
+    interfaces_only_str = ""
+    if args.interfaces_only:
+        interfaces_only_str = f"""
+          <buildtool_depend>rosidl_default_generators</buildtool_depend>
+          <exec_depend>rosidl_default_runtime</exec_depend>
+          <member_of_group>rosidl_interface_packages</member_of_group>
+        """
+
     package_xml_str = textwrap.dedent(f"""\
         <?xml version="1.0"?>
         <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
@@ -60,6 +68,7 @@ def create_package_xml_from_template(path: pathlib.Path, config: dict, args: arg
         
           <buildtool_depend>{args.build_type}</buildtool_depend>
           {ament_dependencies_str:>8}
+          {interfaces_only_str}
           <test_depend>ament_lint_auto</test_depend>
           <test_depend>ament_lint_common</test_depend>
         
