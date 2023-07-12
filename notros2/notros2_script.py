@@ -52,10 +52,11 @@ def main() -> None:
         set_arguments: list[str] = ['mantainer-name', 'mantainer-email', 'license']
 
         for argument in set_arguments:
+            current_value_of_argument = config[argument.replace("-", "_")]
             parser_set.add_argument(f'--{argument}',
                                     action='store',
                                     type=str,
-                                    help=f"sets the default {argument}. Currently '{config['mantainer_name']}'"
+                                    help=f"sets the default {argument}. Currently '{current_value_of_argument}'"
                                     )
 
         # "pkg create"
@@ -93,6 +94,12 @@ def main() -> None:
 
         if args.command == "pkg":
             if args.subcommand == "create":
+                if args.build_type == "interfaces_only":
+                    # The user input 'interfaces_only' is just to get us until here, so we fix to the
+                    # correct build type from here onward. In ROS2, interface only packages must be
+                    # build with ament_cmake.
+                    args.build_type = "ament_cmake"
+                    args.interfaces_only = True
                 create_package_template(pathlib.Path("."), config, args)
             elif args.subcommand == "set":
                 if len(sys.argv) == 3:

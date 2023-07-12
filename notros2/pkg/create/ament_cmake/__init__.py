@@ -29,3 +29,6 @@ from notros2.pkg.create.ament_cmake._add_node import \
 from notros2.pkg.create.ament_cmake._add_library import \
     create_cpp_for_library, \
     create_hpp_for_library
+from notros2.pkg.create.ament_cmake._add_message_only import \
+    create_msg_for_interfaces_only, \
+    create_srv_for_interfaces_only
