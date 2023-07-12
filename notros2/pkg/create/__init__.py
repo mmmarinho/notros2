@@ -44,23 +44,26 @@ def create_package_template(path: pathlib.Path, config: dict, args: argparse.Nam
         raise ValueError(f"The directory {args.package_name} already exists, choose another name for your package.")
 
     if args.build_type == "ament_cmake":
-        print(f"Creating ament_cmake package {args.package_name}... ")
-        ac.create_package_xml_from_template(package_path, config, args)
-        ac.create_cmakelists_txt_from_template(package_path, args)
-        ac.create_cpp_for_nodes(package_path, args)
-        ac.create_hpp_for_nodes(package_path, args)
-        ac.create_cpp_for_library(package_path, args)
-        ac.create_hpp_for_library(package_path, args)
-    elif args.build_type == "interfaces_only":
-        print(f"Creating interfaces_only (ament_cmake) package {args.package_name}... ")
-        ac.create_package_xml_from_template(package_path, config, args)
-        ac.create_cmakelists_txt_from_template(package_path, args)
-        ac.create_msg_for_interfaces_only(package_path, args)
-        ac.create_srv_for_interfaces_only(package_path, args)
+        if args.interfaces_only:
+            print(f"Creating interfaces_only (ament_cmake) package {args.package_name}... ")
+            ac.create_package_xml_from_template(package_path, config, args)
+            ac.create_cmakelists_txt_from_template(package_path, args)
+            ac.create_msg_for_interfaces_only(package_path, args)
+            ac.create_srv_for_interfaces_only(package_path, args)
 
-        if vars(args)['add_nodes'] is not None:
-            print("WARNING: --add-nodes is ignored with build-type=interfaces-only.")
-        if vars(args)['has_library']:
-            print("WARNING: --has-library is ignored with build-type=interfaces-only.")
+            if vars(args)['add_nodes'] is not None:
+                print("WARNING: --add-nodes is ignored with build-type=interfaces-only.")
+            if vars(args)['has_library']:
+                print("WARNING: --has-library is ignored with build-type=interfaces-only.")
+        else:
+            print(f"Creating ament_cmake package {args.package_name}... ")
+            ac.create_package_xml_from_template(package_path, config, args)
+            ac.create_cmakelists_txt_from_template(package_path, args)
+            ac.create_cpp_for_nodes(package_path, args)
+            ac.create_hpp_for_nodes(package_path, args)
+            ac.create_cpp_for_library(package_path, args)
+            ac.create_hpp_for_library(package_path, args)
+
+
 
 

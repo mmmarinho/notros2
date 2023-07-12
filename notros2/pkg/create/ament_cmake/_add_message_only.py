@@ -30,7 +30,7 @@ from ._commons import \
 from notros2.pkg.create.ament_cmake.templates.interfaces_only import cmake, msg, srv
 
 
-def get_cmake_for_interfaces_only(path: pathlib.Path, args: argparse.Namespace):
+def get_cmake_for_interfaces_only(path: pathlib.Path, args: argparse.Namespace) -> str:
     _check_common_inputs(path, args)
 
     if not args.interfaces_only:
