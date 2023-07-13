@@ -47,25 +47,29 @@ Define default license
 notros2 pkg set --license "Licenest"
 Create ROS2 packages
 notros2 pkg create -h
+Create empty ament_python package
+notros2 pkg create ap_test_package1 ament_python
+Create ament_python package with dependencies
+notros2 pkg create ap_test_package2 ament_python --ament-dependencies rclcpp geometry_msgs
 Create empty ament_cmake package
-notros2 pkg create test_package1 ament_cmake
+notros2 pkg create ac_test_package1 ament_cmake
 Create ament_cmake package with dependencies
-notros2 pkg create test_package2 ament_cmake --ament-dependencies rclcpp geometry_msgs
+notros2 pkg create ac_test_package2 ament_cmake --ament-dependencies rclcpp geometry_msgs
 Create ament_cmake package with a sample library
-notros2 pkg create test_package3 ament_cmake --ament-dependencies rclcpp geometry_msgs --has-library
+notros2 pkg create ac_test_package3 ament_cmake --ament-dependencies rclcpp geometry_msgs --has-library
 Create ament_cmake package with sample nodes
-notros2 pkg create test_package4 ament_cmake --ament-dependencies rclcpp geometry_msgs --add-nodes node1 node2
+notros2 pkg create ac_test_package4 ament_cmake --ament-dependencies rclcpp geometry_msgs --add-nodes node1 node2
 Create ament_cmake with sample nodes and a library
-notros2 pkg create test_package5 ament_cmake \
+notros2 pkg create ac_test_package5 ament_cmake \
 --ament-dependencies rclcpp geometry_msgs \
 --add-nodes node1 node2 node3 \
 --has-library
 Create a dedicated package for interfaces with dependencies
-notros2 pkg create test_package6 interfaces_only --ament-dependencies geometry_msgs
+notros2 pkg create ac_test_package6 interfaces_only --ament-dependencies geometry_msgs
 """
 
 preamble: str = """\
-# (Murilo's) not ROS Utilities 
+# (Murilo's) notros2 Utilities 
 
 ROS2 utilities.
 

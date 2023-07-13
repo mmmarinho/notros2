@@ -24,7 +24,7 @@ SOFTWARE.
 import os
 import argparse
 import pathlib
-from ._commons import \
+from notros2.pkg.create._commons import \
     _check_common_inputs, \
     _parse_ament_dependencies_for_cmake
 

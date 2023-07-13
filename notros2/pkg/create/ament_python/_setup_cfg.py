@@ -21,13 +21,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from notros2.pkg.create.ament_cmake._cmakelists_txt import create_cmakelists_txt_from_template
-from notros2.pkg.create.ament_cmake._add_node import \
-    create_cpp_for_nodes, \
-    create_hpp_for_nodes
-from notros2.pkg.create.ament_cmake._add_library import \
-    create_cpp_for_library, \
-    create_hpp_for_library
-from notros2.pkg.create.ament_cmake._add_message_only import \
-    create_msg_for_interfaces_only, \
-    create_srv_for_interfaces_only
+import textwrap
+import argparse
+import pathlib
+
+from notros2.pkg.create._commons import _check_common_inputs
+
+
+def create_setup_cfg(path: pathlib.Path, args: argparse.Namespace) -> None:
+    """
+    Creates the setup.cfg or an ament_python package.
+    :param path: the path to the root folder of the package.
+    :param args: the parsed commandline arguments.
+    :return: None
+    :except: Raises ValueErrors when the inputs are wrong.
+    """
+    _check_common_inputs(path, args)
+
+    print(f"Creating setup.cfg ... ")
+
+    setup_cfg_str = textwrap.dedent(f"""\
+[develop]
+script_dir=$base/lib/{args.package_name}
+[install]
+install_scripts=$base/lib/{args.package_name}
+)\
+    """)
+
+    with open(path / pathlib.Path('setup.cfg'), 'w+') as setup_cfg_file:
+        setup_cfg_file.write(setup_cfg_str)

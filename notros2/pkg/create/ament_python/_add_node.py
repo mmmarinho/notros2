@@ -61,50 +61,16 @@ def create_cpp_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
             node_cpp_main_file.write(node_cpp_main_str)
 
 
-def create_hpp_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
-    _check_common_inputs(path, args)
-
-    if vars(args)['add_nodes'] is None:
-        return
-    cpp_source_path = path / pathlib.Path('src')
-    if not os.path.isdir(cpp_source_path):
-        os.mkdir(cpp_source_path)
-
-    for node_name in vars(args)['add_nodes']:
-        print(f"Creating {node_name}.hpp ...")
-
-        NodeName = node_name.replace("_", " ").title().replace(" ", "")
-
-        context = {
-            "NodeName": NodeName
-        }
-        node_hpp_str = hpp.get_source(args, context)
-
-        with open(cpp_source_path / pathlib.Path(f'{node_name}.hpp'), 'w+') as node_hpp_file:
-            node_hpp_file.write(node_hpp_str)
-
-
-def get_cmake_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> str:
+def get_entry_point_for_node(path: pathlib.Path, args: argparse.Namespace) -> str:
     _check_common_inputs(path, args)
 
     if vars(args)['add_nodes'] is None:
         return ""
 
-    ament_dependencies_str = _parse_ament_dependencies_for_cmake(args)
-
     add_nodes_str = ""
     for node_name in vars(args)['add_nodes']:
-        print(f"Adding CMakeLists.txt directive for {node_name} ...")
+        print(f"Adding entry_point directive for {node_name} ...")
+        add_nodes_str = add_nodes_str + f"        '{node_name} = {args.package_name}.{node_name}:main',\n"
 
-        nl = '\n'
-
-        context = {
-            "node_name": node_name,
-            "ament_dependencies_str": ament_dependencies_str,
-            "nl": nl
-        }
-        add_node_str = cmake.get_source(args, context)
-
-        add_nodes_str = add_nodes_str + add_node_str
-
-    return add_nodes_str
+    # Remove the last ",\n"
+    return add_nodes_str[:-2]

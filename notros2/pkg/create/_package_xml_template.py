@@ -25,7 +25,7 @@ import textwrap
 import argparse
 import pathlib
 
-from ._commons import _check_common_inputs
+from notros2.pkg.create._commons import _check_common_inputs
 
 
 def create_package_xml_from_template(path: pathlib.Path, config: dict, args: argparse.Namespace):
@@ -63,7 +63,7 @@ def create_package_xml_from_template(path: pathlib.Path, config: dict, args: arg
           <name>{args.package_name}</name>
           <version>0.0.0</version>
           <description>TODO: Package description</description>
-          <maintainer email="{config['mantainer_email']}">{config['mantainer_name']}</maintainer>
+          <maintainer email="{config['mantainer_email'].replace('"','')}">{config['mantainer_name'].replace('"','')}</maintainer>
           <license>{config['license']}</license>
         
           <buildtool_depend>{args.build_type}</buildtool_depend>
