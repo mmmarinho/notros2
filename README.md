@@ -10,6 +10,31 @@ python -m pip install notros2
 
 This creates a command line entry point called `notros2`.
 
+#### Get general help, when you have no idea what is going on
+
+
+```commandline
+notros2 -h
+```
+
+that outputs
+
+```commandline
+usage: notros2 [-h] {pkg} ...
+
+ROS2 utilities.
+
+positional arguments:
+  {pkg}       sub-command help
+    pkg       utilities for ROS2 packages.
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+This is a package template generator based on the tutorials at
+https://ros2-tutorial.readthedocs.io/en/latest/
+```
+
 #### Command to define default values for new ROS2 packages
 
 
@@ -100,7 +125,7 @@ optional arguments:
   -h, --help            show this help message and exit
   --ament-dependencies AMENT_DEPENDENCIES [AMENT_DEPENDENCIES ...]
                         The ament dependencies, e.g. ROS2 packages such as
-                        `rclcpp`.
+                        `rclcpp` and `rclpy`.
   --add-nodes ADD_NODES [ADD_NODES ...]
                         A sequence of names of sample nodes, e.g.
                         `my_sample_node`.

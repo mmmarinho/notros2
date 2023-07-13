@@ -78,6 +78,8 @@ that outputs
 
 # First line is the description, the following line is the command
 command_str = """\
+Get general help, when you have no idea what is going on
+notros2 -h
 Command to define default values for new ROS2 packages
 notros2 pkg set -h
 Define default mantainer name

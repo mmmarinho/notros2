@@ -34,8 +34,8 @@ def main() -> None:
     try:
 
         parser = argparse.ArgumentParser(prog='notros2',
-                                         description='notros2 are not ros2 utilities.',
-                                         epilog='This is a package template generator based on the tutorials at'
+                                         description='ROS2 utilities.',
+                                         epilog='This is a package template generator based on the tutorials at '
                                                 'https://ros2-tutorial.readthedocs.io/en/latest/',
                                          )
         subparsers = parser.add_subparsers(help='sub-command help', required=True, dest='command')
@@ -44,11 +44,11 @@ def main() -> None:
         config = make_or_get_default_user_configuration()
 
         # "pkg"
-        parser_pkg = subparsers.add_parser('pkg', help='utilities for notros2 packages.')
+        parser_pkg = subparsers.add_parser('pkg', help='utilities for ROS2 packages.')
         subparsers_pkg = parser_pkg.add_subparsers(help='sub-command help', required=True, dest='subcommand')
 
         # "pkg set"
-        parser_set = subparsers_pkg.add_parser('set', help='set notros2 default package template info.')
+        parser_set = subparsers_pkg.add_parser('set', help='set ROS2 default package template info.')
         set_arguments: list[str] = ['mantainer-name', 'mantainer-email', 'license']
 
         for argument in set_arguments:
@@ -60,7 +60,7 @@ def main() -> None:
                                     )
 
         # "pkg create"
-        parser_pkg_create = subparsers_pkg.add_parser('create', help='create notros2 package templates.')
+        parser_pkg_create = subparsers_pkg.add_parser('create', help='create ROS2 package templates.')
         parser_pkg_create.add_argument('package_name', type=str)
         parser_pkg_create.add_argument('build_type',
                                        type=str,
@@ -70,7 +70,7 @@ def main() -> None:
 
         parser_pkg_create.add_argument('--ament-dependencies',
                                        type=str,
-                                       help="The ament dependencies, e.g. ROS2 packages such as `rclcpp`.",
+                                       help="The ament dependencies, e.g. ROS2 packages such as `rclcpp` and `rclpy`.",
                                        action='store',
                                        nargs='+')
 
