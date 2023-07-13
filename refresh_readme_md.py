@@ -92,6 +92,8 @@ Create empty ament_python package
 notros2 pkg create ap_test_package1 ament_python
 Create ament_python package with dependencies
 notros2 pkg create ap_test_package2 ament_python --ament-dependencies rclcpp geometry_msgs
+Create ament_python package with sample nodes
+notros2 pkg create ap_test_package4 ament_python --ament-dependencies rclcpp geometry_msgs --add-nodes node1 node2
 Create empty ament_cmake package
 notros2 pkg create ac_test_package1 ament_cmake
 Create ament_cmake package with dependencies

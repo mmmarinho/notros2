@@ -21,44 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-import os
 import argparse
 import pathlib
 from notros2.pkg.create._commons import \
-    _check_common_inputs, \
-    _parse_ament_dependencies_for_cmake
+    _check_common_inputs
 
-from notros2.pkg.create.ament_cmake.templates.simple_node import cpp, main_cpp, hpp, cmake
-
-
-def create_cpp_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
-    _check_common_inputs(path, args)
-
-    if vars(args)['add_nodes'] is None:
-        return
-    cpp_source_path = path / pathlib.Path('src')
-    if not os.path.isdir(cpp_source_path):
-        os.mkdir(cpp_source_path)
-
-    for node_name in vars(args)['add_nodes']:
-        print(f"Creating {node_name}.cpp ...")
-        NodeName = node_name.replace("_", " ").title().replace(" ", "")
-
-        context = {
-            'node_name': node_name,
-            'NodeName': NodeName
-        }
-        node_cpp_str = cpp.get_source(args, context)
-
-        with open(cpp_source_path / pathlib.Path(f'{node_name}.cpp'), 'w+') as node_cpp_file:
-            node_cpp_file.write(node_cpp_str)
-
-        print(f"Creating {node_name}_main.cpp ...")
-
-        node_cpp_main_str = main_cpp.get_source(args, context)
-
-        with open(cpp_source_path / pathlib.Path(f'{node_name}_main.cpp'), 'w+') as node_cpp_main_file:
-            node_cpp_main_file.write(node_cpp_main_str)
+from notros2.pkg.create.ament_python.templates.simple_node import main_py
 
 
 def get_entry_point_for_node(path: pathlib.Path, args: argparse.Namespace) -> str:
@@ -74,3 +42,25 @@ def get_entry_point_for_node(path: pathlib.Path, args: argparse.Namespace) -> st
 
     # Remove the last ",\n"
     return add_nodes_str[:-2]
+
+
+def create_py_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
+    _check_common_inputs(path, args)
+
+    if vars(args)['add_nodes'] is None:
+        return
+
+    node_source_path = path / pathlib.Path(args.package_name)
+
+    for node_name in vars(args)['add_nodes']:
+        print(f"Creating {node_name}.py ...")
+        NodeName = node_name.replace("_", " ").title().replace(" ", "")
+
+        context = {
+            'node_name': node_name,
+            'NodeName': NodeName
+        }
+        node_python_srt = main_py.get_source(args, context)
+
+        with open(node_source_path / pathlib.Path(f'{node_name}.py'), 'w+') as node_source_file:
+            node_source_file.write(node_python_srt)

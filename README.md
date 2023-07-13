@@ -177,6 +177,47 @@ ap_test_package2
             
 
 
+### Create ament_python package with sample nodes
+
+
+```commandline
+notros2 pkg create ap_test_package4 ament_python --ament-dependencies rclcpp geometry_msgs --add-nodes node1 node2
+```
+
+that outputs
+
+```commandline
+Creating ament_python package ap_test_package4 ... 
+Creating package.xml... 
+Creating setup.py ... 
+Adding entry_point directive for node1 ...
+Adding entry_point directive for node2 ...
+Creating setup.cfg ... 
+Creating resource folder/file ...
+Creating Python module ...
+Creating node1.py ...
+Creating node2.py ...
+```
+           
+and a folder structure
+
+```commandline
+ap_test_package4
+├── ap_test_package4
+│   ├── __init__.py
+│   ├── node1.py
+│   └── node2.py
+├── package.xml
+├── resource
+│   └── ap_test_package4
+├── setup.cfg
+└── setup.py
+
+3 directories, 7 files
+```
+            
+
+
 ### Create empty ament_cmake package
 
 

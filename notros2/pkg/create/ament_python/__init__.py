@@ -26,3 +26,4 @@ from ._setup_py import create_setup_py
 from ._setup_cfg import create_setup_cfg
 from ._resource_file import create_resource_file
 from ._module_init_py import create_module
+from ._add_node import create_py_for_nodes
