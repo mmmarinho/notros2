@@ -65,6 +65,7 @@ def create_package_template(path: pathlib.Path, config: dict, args: argparse.Nam
             ac.create_hpp_for_nodes(package_path, args)
             ac.create_cpp_for_library(package_path, args)
             ac.create_hpp_for_library(package_path, args)
+
     elif args.build_type == "ament_python":
         print(f"Creating ament_python package {args.package_name} ... ")
         create_package_xml_from_template(package_path, config, args)

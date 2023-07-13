@@ -41,7 +41,7 @@ def create_cmakelists_txt_from_template(path: pathlib.Path, args: argparse.Names
     """
     _check_common_inputs(path, args)
 
-    print(f"Creating CMakeLists.txt... ")
+    print(f"Creating CMakeLists.txt ... ")
 
     ament_dependencies_str = ""
     if vars(args)['ament_dependencies'] is not None:

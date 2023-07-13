@@ -39,7 +39,7 @@ def create_package_xml_from_template(path: pathlib.Path, config: dict, args: arg
     """
     _check_common_inputs(path, args)
 
-    print(f"Creating package.xml... ")
+    print(f"Creating package.xml ... ")
 
     ament_dependencies_str = ""
     if args.ament_dependencies is not None:
