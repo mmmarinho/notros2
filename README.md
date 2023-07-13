@@ -146,7 +146,7 @@ ap_test_package1
 
 
 ```commandline
-notros2 pkg create ap_test_package2 ament_python --ament-dependencies rclcpp geometry_msgs
+notros2 pkg create ap_test_package2 ament_python --ament-dependencies rclpy geometry_msgs
 ```
 
 that outputs
@@ -177,11 +177,53 @@ ap_test_package2
             
 
 
+### Create ament_python package with a sample library
+
+
+```commandline
+notros2 pkg create ap_test_package3 ament_python --ament-dependencies rclpy geometry_msgs --has-library
+```
+
+that outputs
+
+```commandline
+Creating ament_python package ap_test_package3 ... 
+Creating package.xml... 
+Creating setup.py ... 
+Creating setup.cfg ... 
+Creating resource folder/file ...
+Creating Python module ...
+Creating __init__.py ...
+Creating _sample_class.py ...
+Creating _sample_function.py ...
+```
+           
+and a folder structure
+
+```commandline
+ap_test_package3
+├── ap_test_package3
+│   ├── __init__.py
+│   └── sample_python_library
+│       ├── __init__.py
+│       ├── _sample_class.py
+│       └── _sample_function.py
+├── package.xml
+├── resource
+│   └── ap_test_package3
+├── setup.cfg
+└── setup.py
+
+4 directories, 8 files
+```
+            
+
+
 ### Create ament_python package with sample nodes
 
 
 ```commandline
-notros2 pkg create ap_test_package4 ament_python --ament-dependencies rclcpp geometry_msgs --add-nodes node1 node2
+notros2 pkg create ap_test_package4 ament_python --ament-dependencies rclpy geometry_msgs --add-nodes node1 node2
 ```
 
 that outputs
@@ -214,6 +256,57 @@ ap_test_package4
 └── setup.py
 
 3 directories, 7 files
+```
+            
+
+
+### Create ament_python with sample nodes and a library
+
+
+```commandline
+notros2 pkg create ap_test_package5 ament_python --ament-dependencies rclpy geometry_msgs --add-nodes node1 node2 node3 --has-library
+```
+
+that outputs
+
+```commandline
+Creating ament_python package ap_test_package5 ... 
+Creating package.xml... 
+Creating setup.py ... 
+Adding entry_point directive for node1 ...
+Adding entry_point directive for node2 ...
+Adding entry_point directive for node3 ...
+Creating setup.cfg ... 
+Creating resource folder/file ...
+Creating Python module ...
+Creating node1.py ...
+Creating node2.py ...
+Creating node3.py ...
+Creating __init__.py ...
+Creating _sample_class.py ...
+Creating _sample_function.py ...
+```
+           
+and a folder structure
+
+```commandline
+ap_test_package5
+├── ap_test_package5
+│   ├── __init__.py
+│   ├── node1.py
+│   ├── node2.py
+│   ├── node3.py
+│   └── sample_python_library
+│       ├── __init__.py
+│       ├── _sample_class.py
+│       └── _sample_function.py
+├── package.xml
+├── resource
+│   └── ap_test_package5
+├── setup.cfg
+└── setup.py
+
+4 directories, 11 files
 ```
             
 

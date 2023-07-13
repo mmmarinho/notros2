@@ -21,45 +21,34 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+import os
 import argparse
 import pathlib
 
 from notros2.pkg.create._commons import _check_common_inputs
-from notros2.pkg.create.ament_python.templates.simple_node import sources_py
+from notros2.pkg.create.ament_python.templates.library import sources_py
 
 
-def get_entry_point_for_node(path: pathlib.Path, args: argparse.Namespace) -> str:
+def create_py_for_library(path: pathlib.Path, args: argparse.Namespace) -> None:
     _check_common_inputs(path, args)
 
-    if vars(args)['add_nodes'] is None:
-        return ""
-
-    add_nodes_str = ""
-    for node_name in vars(args)['add_nodes']:
-        print(f"Adding entry_point directive for {node_name} ...")
-        add_nodes_str = add_nodes_str + f"        '{node_name} = {args.package_name}.{node_name}:main',\n"
-
-    # Remove the last ",\n"
-    return add_nodes_str[:-2]
-
-
-def create_py_for_nodes(path: pathlib.Path, args: argparse.Namespace) -> None:
-    _check_common_inputs(path, args)
-
-    if vars(args)['add_nodes'] is None:
+    if not vars(args)['has_library']:
         return
 
-    node_source_path = path / pathlib.Path(args.package_name)
+    python_module_path = path / pathlib.Path(args.package_name)
+    python_library_path = python_module_path / pathlib.Path('sample_python_library')
 
-    for node_name in vars(args)['add_nodes']:
-        print(f"Creating {node_name}.py ...")
-        NodeName = node_name.replace("_", " ").title().replace(" ", "")
+    if not os.path.isdir(python_library_path):
+        os.mkdir(python_library_path)
 
-        context = {
-            'node_name': node_name,
-            'NodeName': NodeName
-        }
-        node_python_srt = sources_py.get_source(args, context)
+    print("Creating __init__.py ...")
+    with open(python_library_path / pathlib.Path('__init__.py'), 'w+') as f:
+        f.write(sources_py.get_module_init(args, context={}))
 
-        with open(node_source_path / pathlib.Path(f'{node_name}.py'), 'w+') as node_source_file:
-            node_source_file.write(node_python_srt)
+    print("Creating _sample_class.py ...")
+    with open(python_library_path / pathlib.Path('_sample_class.py'), 'w+') as f:
+        f.write(sources_py.get_sample_class(args, context={}))
+
+    print("Creating _sample_function.py ...")
+    with open(python_library_path / pathlib.Path('_sample_function.py'), 'w+') as f:
+        f.write(sources_py.get_sample_function(args, context={}))

@@ -21,10 +21,36 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+import argparse
 
-from ._setup_py import create_setup_py
-from ._setup_cfg import create_setup_cfg
-from ._resource_file import create_resource_file
-from ._module_init_py import create_module
-from ._add_node import create_py_for_nodes
-from ._add_library import create_py_for_library
+
+def get_module_init(args: argparse.Namespace, context: dict) -> str:
+    return f"""\
+from python_package_with_a_library.sample_python_library._sample_class import SampleClass
+from python_package_with_a_library.sample_python_library._sample_function import sample_function_for_square_of_sum
+"""
+
+
+def get_sample_function(args: argparse.Namespace, context: dict) -> str:
+    return f"""\
+def sample_function_for_square_of_sum(a: float, b: float) -> float:
+    \"\"\"Returns the square of a sum (a + b)^2 = a^2 + 2ab + b^2\"\"\"
+    return a ** 2 + 2 * a * b + b ** 2
+"""
+
+
+def get_sample_class(args: argparse.Namespace, context: dict) -> str:
+    return f"""\
+class SampleClass:
+    \"\"\"A sample class to check how they can be imported by other ROS2 packages.\"\"\"
+
+    def __init__(self, name: str):
+        self._name = name
+
+    def get_name(self) -> str:
+        \"\"\"
+        Gets the name of this instance.
+        :return: This name.
+        \"\"\"
+        return self._name
+"""

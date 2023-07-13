@@ -73,5 +73,6 @@ def create_package_template(path: pathlib.Path, config: dict, args: argparse.Nam
         ap.create_resource_file(package_path, args)
         ap.create_module(package_path, args)
         ap.create_py_for_nodes(package_path, args)
+        ap.create_py_for_library(package_path, args)
     else:
         raise NotImplementedError("How did you get here?")
