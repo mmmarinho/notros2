@@ -1,4 +1,4 @@
-# (Murilo's) notros2 Utilities 
+### `notros2` Utilities 
 
 ROS2 utilities.
 
@@ -10,7 +10,7 @@ python -m pip install notros2
 
 This creates a command line entry point called `notros2`.
 
-### Command to define default values for new ROS2 packages
+#### Command to define default values for new ROS2 packages
 
 
 ```commandline
@@ -33,7 +33,7 @@ optional arguments:
   --license LICENSE     sets the default license. Currently 'TODO'
 ```
 
-### Define default mantainer name
+#### Define default mantainer name
 
 
 ```commandline
@@ -47,7 +47,7 @@ Saving new user configuration with values:
 {'mantainer_name': '"John"', 'mantainer_email': 'TODO@TO.DO', 'license': 'TODO'}
 ```
 
-### Define default mantainer email
+#### Define default mantainer email
 
 
 ```commandline
@@ -61,7 +61,7 @@ Saving new user configuration with values:
 {'mantainer_name': '"John"', 'mantainer_email': '"john.testerson@testcorp.info"', 'license': 'TODO'}
 ```
 
-### Define default license
+#### Define default license
 
 
 ```commandline
@@ -75,7 +75,7 @@ Saving new user configuration with values:
 {'mantainer_name': '"John"', 'mantainer_email': '"john.testerson@testcorp.info"', 'license': '"Licenest"'}
 ```
 
-### Command to create new ROS2 packages
+#### Command to create new ROS2 packages
 
 
 ```commandline
@@ -107,7 +107,7 @@ optional arguments:
   --has-library         add this flag if the package should contain a library.
 ```
 
-### Create empty ament_python package
+#### Create empty ament_python package
 
 
 ```commandline
@@ -142,7 +142,7 @@ ap_test_package1
             
 
 
-### Create ament_python package with dependencies
+#### Create ament_python package with dependencies
 
 
 ```commandline
@@ -177,7 +177,7 @@ ap_test_package2
             
 
 
-### Create ament_python package with a sample library
+#### Create ament_python package with a sample library
 
 
 ```commandline
@@ -219,7 +219,7 @@ ap_test_package3
             
 
 
-### Create ament_python package with sample nodes
+#### Create ament_python package with sample nodes
 
 
 ```commandline
@@ -260,7 +260,7 @@ ap_test_package4
             
 
 
-### Create ament_python with sample nodes and a library
+#### Create ament_python with sample nodes and a library
 
 
 ```commandline
@@ -311,7 +311,7 @@ ap_test_package5
             
 
 
-### Create empty ament_cmake package
+#### Create empty ament_cmake package
 
 
 ```commandline
@@ -341,7 +341,7 @@ ac_test_package1
             
 
 
-### Create ament_cmake package with dependencies
+#### Create ament_cmake package with dependencies
 
 
 ```commandline
@@ -371,7 +371,7 @@ ac_test_package2
             
 
 
-### Create ament_cmake package with a sample library
+#### Create ament_cmake package with a sample library
 
 
 ```commandline
@@ -406,7 +406,7 @@ ac_test_package3
             
 
 
-### Create ament_cmake package with sample nodes
+#### Create ament_cmake package with sample nodes
 
 
 ```commandline
@@ -451,7 +451,7 @@ ac_test_package4
             
 
 
-### Create ament_cmake with sample nodes and a library
+#### Create ament_cmake with sample nodes and a library
 
 
 ```commandline
@@ -507,7 +507,7 @@ ac_test_package5
             
 
 
-### Create a dedicated package for interfaces with dependencies
+#### Create a dedicated package for interfaces with dependencies
 
 
 ```commandline
