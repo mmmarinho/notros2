@@ -10,7 +10,7 @@ python -m pip install notros2
 
 This creates a command line entry point called `notros2`.
 
-### Define default values
+### Command to define default values for new ROS2 packages
 
 
 ```commandline
@@ -75,7 +75,7 @@ Saving new user configuration with values:
 {'mantainer_name': '"John"', 'mantainer_email': '"john.testerson@testcorp.info"', 'license': '"Licenest"'}
 ```
 
-### Create ROS2 packages
+### Command to create new ROS2 packages
 
 
 ```commandline
@@ -124,6 +124,23 @@ Creating setup.cfg ...
 Creating resource folder/file ...
 Creating Python module ...
 ```
+           
+and a folder structure
+
+```commandline
+ap_test_package1
+├── ap_test_package1
+│   └── __init__.py
+├── package.xml
+├── resource
+│   └── ap_test_package1
+├── setup.cfg
+└── setup.py
+
+3 directories, 5 files
+```
+            
+
 
 ### Create ament_python package with dependencies
 
@@ -142,6 +159,23 @@ Creating setup.cfg ...
 Creating resource folder/file ...
 Creating Python module ...
 ```
+           
+and a folder structure
+
+```commandline
+ap_test_package2
+├── ap_test_package2
+│   └── __init__.py
+├── package.xml
+├── resource
+│   └── ap_test_package2
+├── setup.cfg
+└── setup.py
+
+3 directories, 5 files
+```
+            
+
 
 ### Create empty ament_cmake package
 
@@ -158,6 +192,20 @@ Creating package.xml...
 Creating CMakeLists.txt... 
 Creating sample placeholder for library hpp ...
 ```
+           
+and a folder structure
+
+```commandline
+ac_test_package1
+├── CMakeLists.txt
+├── include
+│   └── ac_test_package1
+└── package.xml
+
+3 directories, 2 files
+```
+            
+
 
 ### Create ament_cmake package with dependencies
 
@@ -174,6 +222,20 @@ Creating package.xml...
 Creating CMakeLists.txt... 
 Creating sample placeholder for library hpp ...
 ```
+           
+and a folder structure
+
+```commandline
+ac_test_package2
+├── CMakeLists.txt
+├── include
+│   └── ac_test_package2
+└── package.xml
+
+3 directories, 2 files
+```
+            
+
 
 ### Create ament_cmake package with a sample library
 
@@ -192,6 +254,23 @@ Adding CMakeLists.txt directive for library ...
 Creating sample library cpp ...
 Creating sample library hpp ...
 ```
+           
+and a folder structure
+
+```commandline
+ac_test_package3
+├── CMakeLists.txt
+├── include
+│   └── ac_test_package3
+│       └── sample_class.hpp
+├── package.xml
+└── src
+    └── sample_class.cpp
+
+4 directories, 4 files
+```
+            
+
 
 ### Create ament_cmake package with sample nodes
 
@@ -216,6 +295,27 @@ Creating node1.hpp ...
 Creating node2.hpp ...
 Creating sample placeholder for library hpp ...
 ```
+           
+and a folder structure
+
+```commandline
+ac_test_package4
+├── CMakeLists.txt
+├── include
+│   └── ac_test_package4
+├── package.xml
+└── src
+    ├── node1.cpp
+    ├── node1.hpp
+    ├── node1_main.cpp
+    ├── node2.cpp
+    ├── node2.hpp
+    └── node2_main.cpp
+
+4 directories, 8 files
+```
+            
+
 
 ### Create ament_cmake with sample nodes and a library
 
@@ -246,6 +346,32 @@ Creating node3.hpp ...
 Creating sample library cpp ...
 Creating sample library hpp ...
 ```
+           
+and a folder structure
+
+```commandline
+ac_test_package5
+├── CMakeLists.txt
+├── include
+│   └── ac_test_package5
+│       └── sample_class.hpp
+├── package.xml
+└── src
+    ├── node1.cpp
+    ├── node1.hpp
+    ├── node1_main.cpp
+    ├── node2.cpp
+    ├── node2.hpp
+    ├── node2_main.cpp
+    ├── node3.cpp
+    ├── node3.hpp
+    ├── node3_main.cpp
+    └── sample_class.cpp
+
+4 directories, 13 files
+```
+            
+
 
 ### Create a dedicated package for interfaces with dependencies
 
@@ -264,3 +390,19 @@ Adding CMakeLists.txt directive for interfaces only package ...
 Creating sample msg ...
 Creating sample srv ...
 ```
+           
+and a folder structure
+
+```commandline
+ac_test_package6
+├── CMakeLists.txt
+├── msg
+│   └── AmazingQuote.msg
+├── package.xml
+└── srv
+    └── ReviewAQuote.srv
+
+3 directories, 4 files
+```
+            
+
