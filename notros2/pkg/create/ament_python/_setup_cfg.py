@@ -45,7 +45,7 @@ def create_setup_cfg(path: pathlib.Path, args: argparse.Namespace) -> None:
 script_dir=$base/lib/{args.package_name}
 [install]
 install_scripts=$base/lib/{args.package_name}
-)\
+\
     """)
 
     with open(path / pathlib.Path('setup.cfg'), 'w+') as setup_cfg_file:
